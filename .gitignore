@@ -18,7 +18,6 @@ env/
 # Flet
 .flet/
 build/
-dist/
 
 # IDE
 .idea/

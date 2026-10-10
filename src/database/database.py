@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from platformdirs import user_data_dir
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -24,21 +25,16 @@ class Database:
         )
 
     def _get_data_directory(self) -> Path:
-        flet_data_dir = os.getenv("FLET_APP_STORAGE_DATA")
-
-        if flet_data_dir:
-            data_dir = Path(flet_data_dir)
-        else:
-            data_dir = (
-                Path(Paths.BASE_DIR.value)
-                / "data"
+        data_dir = Path(
+            user_data_dir(
+                "Game Settings Vault"
             )
+        )
 
         data_dir.mkdir(
             parents=True,
             exist_ok=True,
         )
-
         return data_dir
 
     @property

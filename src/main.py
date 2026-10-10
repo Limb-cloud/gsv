@@ -8,7 +8,8 @@ from controllers.impl.game_controller import GameController
 from controllers.impl.preset_settings_controller import PresetSettingsController
 from controllers.preset_settings_controller_interface import PresetSettingsControllerInterface
 from database.database import Database
-from database.initializer import DatabaseInitializer
+from database.database_initializer import DatabaseInitializer
+from database.initializer import Initializer
 from enums.colors import Colors
 from enums.paths import Paths
 from reports.abstract_application_report import AbstractReport
@@ -46,7 +47,7 @@ def main(page: ft.Page):
 
     database = Database()
 
-    database_initializer = DatabaseInitializer(
+    database_initializer: Initializer = DatabaseInitializer(
         database
     )
 
