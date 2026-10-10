@@ -357,6 +357,4 @@ Dying Light
 
 **Your games. Your settings. Your vault.**
 
-Made with Python 🐍
-
 </div>
