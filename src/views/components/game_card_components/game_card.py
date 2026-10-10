@@ -96,25 +96,19 @@ class GameCard(Container):
                     resolution=resolution,
                     fps=fps,
                     on_edit=self._edit,
-                    on_delete=self._delete,
+                    on_delete=self._on_delete,
                 ),
             ],
         )
 
     def _favorite_click(self, e):
         if self.on_favorite_click:
-            self.on_favorite_click(
-                self.game
-            )
+            self.on_favorite_click(self.game)
 
     def _edit(self, e):
         if self.on_edit:
-            self.on_edit(
-                self.game
-            )
+            self.on_edit(self.game)
 
-    def _delete(self, e):
+    def _on_delete(self):
         if self.on_delete:
-            self.on_delete(
-                self.game
-            )
+            self.on_delete(self.game)

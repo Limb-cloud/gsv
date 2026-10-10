@@ -53,6 +53,7 @@ class GameControllerInterface(ABC):
             self,
             query: str,
             on_open,
-            on_favorite
+            on_favorite,
+            on_delete
     ) -> ControllerResult[list[GameCard]]:
         pass

@@ -4,11 +4,11 @@ import flet as ft
 
 from controllers.game_controller_interface import GameControllerInterface
 from controllers.preset_settings_controller_interface import PresetSettingsControllerInterface
+from models.data_classes.controller_result import ControllerResult
 from models.game import Game
 from views.components.game_card_components.game_dialog import GameDialog
 from views.components.games_components.games_header import GamesHeader
 from views.game_details_view import GameDetailsView
-
 
 @ft.control
 class GamesView(ft.Container):
@@ -91,12 +91,13 @@ class GamesView(ft.Container):
             cards = self.game_controller.load_favorites(
                 self._open_game,
                 self._toggle_favorite,
+                self._on_delete_game
             ).data
         else:
             cards = self.game_controller.load_games(
                 self._open_game,
                 self._toggle_favorite,
-                self.on_
+                self._on_delete_game
             ).data
 
         self.games_grid.controls.extend(cards)
@@ -148,6 +149,25 @@ class GamesView(ft.Container):
 
         self.update()
 
+    def _result_handler(self, result: ControllerResult[Game]):
+
+        if result.data is None:
+            if result.notification is not None:
+                self.page.show_dialog(
+                    result.notification
+                )
+            return
+
+        self.page.pop_dialog()
+
+        self._load_games()
+        self.update()
+
+        if result.notification is not None:
+            self.page.show_dialog(
+                result.notification
+            )
+
     def _toggle_favorite(self, game: Game):
         result = self.game_controller.on_toggle_favorite(game)
 
@@ -164,9 +184,10 @@ class GamesView(ft.Container):
 
     def _search_games(self):
         result = self.game_controller.on_search(
-            self.header.search_field.value,
-            self._open_game,
-            self._toggle_favorite
+            query=self.header.search_field.value,
+            on_open=self._open_game,
+            on_favorite=self._toggle_favorite,
+            on_delete=self._on_delete_game
         )
 
         if result.notification is not None:
@@ -197,23 +218,8 @@ class GamesView(ft.Container):
             cover_path=self.game_dialog.form.cover_picker.cover_value,
         )
 
-        if result.data is None:
-            if result.notification is not None:
-                self.page.show_dialog(
-                    result.notification
-                )
+        self._result_handler(result)
 
-            return
-
-        self.page.pop_dialog()
-
-        self._load_games()
-        self.update()
-
-        if result.notification is not None:
-            self.page.show_dialog(
-                result.notification
-            )
-
-    def _on_delete_game(self):
-        print("Функционал еще в разработке")
+    def _on_delete_game(self, game: Game):
+        result = self.game_controller.on_delete_game(game)
+        self._result_handler(result)

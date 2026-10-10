@@ -25,10 +25,10 @@ class GameController(GameControllerInterface):
 
             return ControllerResult(
                 GameMapper.to_views(
-                    games,
-                    on_open,
-                    on_favorite,
-                    on_delete
+                    games=games,
+                    on_open=on_open,
+                    on_favorite=on_favorite,
+                    on_delete=on_delete
                 )
             )
 
@@ -48,9 +48,10 @@ class GameController(GameControllerInterface):
 
             return ControllerResult(
                 GameMapper.to_views(
-                    games,
-                    on_open,
-                    on_favorite
+                    games=games,
+                    on_open=on_open,
+                    on_favorite=on_favorite,
+                    on_delete=on_delete
                 )
             )
 
@@ -175,16 +176,18 @@ class GameController(GameControllerInterface):
             self,
             query: str,
             on_open,
-            on_favorite
+            on_favorite,
+            on_delete
     ) -> ControllerResult[list[GameCard]]:
         try:
             games = self._game_repository.search(query)
 
             return ControllerResult(
                 data=GameMapper.to_views(
-                    games,
-                    on_open,
-                    on_favorite
+                    games=games,
+                    on_open=on_open,
+                    on_favorite=on_favorite,
+                    on_delete=on_delete
                 )
             )
 

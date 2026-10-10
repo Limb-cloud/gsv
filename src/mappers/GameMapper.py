@@ -19,7 +19,7 @@ class GameMapper:
             on_click=lambda e: on_open(game),
             on_favorite_click=on_favorite,
             on_edit=on_edit,
-            on_delete=on_delete,
+            on_delete=on_delete
         )
 
     @staticmethod
@@ -36,7 +36,7 @@ class GameMapper:
                 on_open=on_open,
                 on_favorite=on_favorite,
                 on_edit=on_edit,
-                on_delete=on_delete,
+                on_delete=on_delete
             )
             for game in games
         ]
