@@ -17,7 +17,7 @@ class SidebarFooter(ft.Column):
             ),
 
             ft.Text(
-                "v1.0.0",
+                "v0.1.0 Alpha",
                 size=11,
                 color=Colors.TEXT_SECONDARY.value,
             )
