@@ -2,6 +2,7 @@ import getpass
 from pathlib import Path
 
 import flet as ft
+from platformdirs import user_data_dir
 
 from controllers.game_controller_interface import GameControllerInterface
 from controllers.impl.game_controller import GameController
@@ -22,11 +23,7 @@ from views.main_view import MainView
 def main(page: ft.Page):
     report: AbstractReport = ApplicationReport(
         login=getpass.getuser(),
-        report_path=(
-            Path(Paths.BASE_DIR.value)
-            / "data"
-            / "application_report.txt"
-        )
+        report_path=(Paths.USER_DIR.value / "application_report.txt")
     )
 
     async def window_event(e: ft.WindowEvent):
@@ -70,6 +67,7 @@ def main(page: ft.Page):
             preset_settings_controller=preset_settings_controller,
         )
     )
+
 
 if __name__ == "__main__":
     ft.run(main)

@@ -25,11 +25,7 @@ class Database:
         )
 
     def _get_data_directory(self) -> Path:
-        data_dir = Path(
-            user_data_dir(
-                "Game Settings Vault"
-            )
-        )
+        data_dir = Paths.USER_DIR.value
 
         data_dir.mkdir(
             parents=True,
